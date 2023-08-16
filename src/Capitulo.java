@@ -14,7 +14,10 @@ class Capitulo {
         this.irmao2 = irmao2;
         this.energia = energia;
     }
+public void setEscolhas(Escolha[] escolhas) {
+   this.escolhas=escolhas;
 
+}
     void mostrarCapitulo() {
         System.out.println(this.texto);
         if (escolhas != null) {
