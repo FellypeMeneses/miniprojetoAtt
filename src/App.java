@@ -37,7 +37,7 @@ Capitulo capitulo3= new Capitulo (personagem1 + " jogou muito pouco durante a pr
 Capitulo capitulo4= new Capitulo (personagem1 + " iniciou seu primeiro jogo com uma otima pontuação e conseguindo distribuir bem o jogo,mas seu treinador pediu para voce" +
 "descançar faltando um quarto e voltar no fim do jogo qual a sua decisão?",irmao1,irmao2,100);     
             
-Capitulo capitulo5= new Capitulo("Voce decidiu descansar assim seu treinador lhe colocou no fim do jogo e voce fez a bola do jogo(FINAL3)",irmao1,irmao2,110);
+Capitulo capitulo5= new Capitulo("Voce decidiu descansar assim seu treinador lhe colocou no fim do jogo e voce conseguiu fazer os ultimos pontos que ganharam a partida para seu time(FINAL3)",irmao1,irmao2,110);
         
 Capitulo capitulo6= new Capitulo("Voce decidiu continuar,o que te lesionou para o resto da temporada(FINAL4)",irmao1,irmao2,50);
         
@@ -68,6 +68,7 @@ Capitulo capitulo8= new Capitulo (personagem1 + " nao evoluiu bem seu jogo e o s
         Escolha[] capFinal = new Escolha[0];
 
         capitulo1.setEscolhas(cap1P1);
+        
         capitulo2.setEscolhas(cap2P1);
         capitulo4.setEscolhas(cap4P1);
        
