@@ -18,7 +18,7 @@ public void setEscolhas(Escolha[] escolhas) {
    this.escolhas=escolhas;
 
 }
-    void mostrarCapitulo() {
+    void mostrar() {
         System.out.println(this.texto);
         if (escolhas != null) {
             System.out.println("As escolhas são: ");
@@ -36,18 +36,18 @@ public void setEscolhas(Escolha[] escolhas) {
                 if (resposta.equalsIgnoreCase(escolha.getTexto())) {
                     escolhaInvalida = false;
                     Capitulo proximoCapitulo = escolha.getProximo();
-                    proximoCapitulo.mostrarCapitulo();
+                    proximoCapitulo.executar();
                     return;
                 }
             }
             if (escolhaInvalida) {
-                System.out.println("Você não digitou uma opção válida, digite novamente:");
+                System.out.println("Digite uma resposta válida:");
             }
         }
     }
 
     public void executar() {
-        mostrarCapitulo();
+        mostrar();
         escolher();
     }
 }
