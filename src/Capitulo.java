@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
 class Capitulo {
-    String texto;
-    Escolha[] escolhas;
-    Personagem irmao1;
-    Personagem irmao2;
-    int energia;
-    Scanner scanner = new Scanner(System.in);
+    private String texto;
+    private Escolha[] escolhas;
+    private Personagem irmao1;
+    private Personagem irmao2;
+    private int energia;
+    private Scanner scanner = new Scanner(System.in);
 
     public Capitulo(String texto, Personagem irmao1, Personagem irmao2, int energia) {
         this.texto = texto;

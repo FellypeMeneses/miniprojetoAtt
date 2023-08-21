@@ -68,7 +68,6 @@ Capitulo capitulo8= new Capitulo (personagem1 + " nao evoluiu bem seu jogo e o s
         Escolha[] capFinal = new Escolha[0];
 
         capitulo1.setEscolhas(cap1P1);
-        
         capitulo2.setEscolhas(cap2P1);
         capitulo4.setEscolhas(cap4P1);
        
