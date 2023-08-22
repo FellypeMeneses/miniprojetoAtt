@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 class Capitulo {
     private String texto;
-    private Escolha[] escolhas;
+    protected ArrayList<Escolha> escolhas;
     private Personagem irmao1;
     private Personagem irmao2;
     private int energia;
@@ -13,27 +13,39 @@ class Capitulo {
         this.irmao1 = irmao1;
         this.irmao2 = irmao2;
         this.energia = energia;
+        this.escolhas = new ArrayList<Escolha>();
     }
-public void setEscolhas(Escolha[] escolhas) {
-   this.escolhas=escolhas;
 
-}
+    protected Capitulo() {
+        this.texto = "";
+        this.escolhas = new ArrayList<Escolha>();
+    }
+
+    public void setEscolhas(Escolha[] escolhas) {
+        this.escolhas = escolhas;
+
+    }
+
     void mostrar() {
         System.out.println(this.texto);
         if (escolhas != null) {
             System.out.println("As escolhas são: ");
             for (Escolha escolha : escolhas) {
-                System.out.println(escolha.getTexto());
+                System.out.println(escolha.textodigitado());
             }
         }
     }
 
-    public void escolher() {
-        boolean escolhaInvalida = true;
-        while (escolhaInvalida) {
-            String resposta = scanner.nextLine();
-            for (Escolha escolha : escolhas) {
-                if (resposta.equalsIgnoreCase(escolha.getTexto())) {
+int escolher(){
+int opcaoEscolhida=0;
+String escolha;
+boolean escolhaValida = true;
+}while(!escolhaInvalida)
+
+    {
+ escolha=escaneador.nextline();
+    for (int i=0,i < escolhas.size();i++)  {
+                if (escolha.equalsIgnoreCase(escolhas.textodigitado)) {
                     escolhaInvalida = false;
                     Capitulo proximoCapitulo = escolha.getProximo();
                     proximoCapitulo.executar();
