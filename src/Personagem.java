@@ -1,6 +1,6 @@
 class Personagem {
     private String nome;
-    private int energia;
+    public int energia;
 
     public Personagem(String nome, int energia) {
         this.nome = nome;

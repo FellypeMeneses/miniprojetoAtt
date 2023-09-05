@@ -1,107 +1,87 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Scanner;
 
-
-class Capitulo {
+public class Capitulo {
     private String texto;
-    protected ArrayList<Escolha> escolhas;
+    private ArrayList<Escolha> escolhas;
     private Personagem personagem1;
-    private int variacaoEnergiapersonagem1;
-    private Scanner escaneador = new Scanner(System.in);
-
+    private int variacaoEnergiaPersonagem1;
+    private Scanner escaneador;
     protected Capitulo() {
         this.texto = "";
         this.escolhas = new ArrayList<Escolha>();
     }
-
-    public Capitulo(String texto, Personagem personagem1, int variacaoEnergiairmao1, Scanner escaneador) {
-        this.texto = texto;
-        this.personagem1 = personagem1;
-        this.variacaoEnergiapersonagem1 = variacaoEnergiairmao1;
-        this.escaneador = escaneador;
-        this.escolhas = new ArrayList<Escolha>();  
+    public Capitulo(String texto, Personagem personagem1,int variacaoEnergiaPersonagem1, Scanner escaneador)  {
+        this.texto=texto;
+        this.personagem1=personagem1;
+        this.variacaoEnergiaPersonagem1=variacaoEnergiaPersonagem1;
+        this.escaneador=escaneador;
+        this.escolhas=new ArrayList<Escolha>();
     }
-    public Capitulo(Map<String, Personagem> personagens, Scanner escaneadorconsole, Scanner escaneadorarquivos)  
-    {    
-        this.lerCapitulo(personagens, escaneadorarquivos);
-        this.escaneador = escaneadorconsole;
-        this.escolhas = new ArrayList<Escolha>();
-      
+    public Capitulo(Map<String, Personagem> personagens, Scanner escaneadordoconsole,Scanner escaneadordearquivo) 
+    {
+        this.LerCapitulo(personagens,escaneadordearquivo);
+        this.escaneador=escaneadordoconsole;
+        this.escolhas=new ArrayList<Escolha>();
     }
-        protected void lerCapitulo(Map<String, Personagem> personagens, Scanner escaneadorarquivos) {
-        
-            escaneadorarquivos.nextLine();
-            String idpersonagem1 = escaneadorarquivos.nextLine();
-            this.personagem1 = personagens.get(idpersonagem1);
-        
-            escaneadorarquivos.nextLine();
-            String linha = escaneadorarquivos.nextLine();
-            this.texto = "";
-            while (!linha.equals("VARIACOES")) {
-        
-              if (linha.equals(idpersonagem1)) {
+    protected void LerCapitulo(Map<String,Personagem> personagens, Scanner escaneadordearquivo){ 
+        escaneadordearquivo.nextLine();
+        String idPersonagem1 = escaneadordearquivo.nextLine();
+        this.personagem1 = personagens.get(idPersonagem1);
+        escaneadordearquivo.nextLine();
+        String linha = escaneadordearquivo.nextLine();
+        this.texto = "";
+        while (!linha.equals("VARIACOESHabilidade")) {
+            
+            if (linha.equals(idPersonagem1)) {
                 texto = texto + personagem1.getNome();
-              } else {
+            } else {
                 texto = texto + linha;
-              }
-              linha = escaneadorarquivos.nextLine();
-        
             }
-            this.variacaoEnergiapersonagem1= Integer.parseInt(escaneadorarquivos.nextLine());
-    }
-    public void adicionarEscolha(Escolha escolha) {
-      escolhas.add(escolha);
-
-    }
-    protected void mostrar(){
-        System.out.println(texto);
-        personagem1.setEnergia(variacaoEnergiapersonagem1);
-    
-        for (int i = 0; i < escolhas.size(); i++) {
-            System.out.println(" - " + escolhas.get(i).getTextoDigitado());
+            linha = escaneadordearquivo.nextLine();
         }
-    
-        System.out.print("Escolha: ");
+        this.variacaoEnergiaPersonagem1 = Integer.parseInt(escaneadordearquivo.nextLine());
+    }
+    public void adicionarescolha(Escolha escolha) {
+        escolhas.add(escolha);
     }
     public void executar() {
         mostrar();
-    
         if (escolhas.size() > 0) {
-            int idCapituloEscolhido = escolher();
+            int idcapituloescolhido = escolher();
             System.out.println();
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("Ação sendo executada...");
             System.out.println();
-            escolhas.get(idCapituloEscolhido).getProximo().executar();
+            escolhas.get(idcapituloescolhido).getProximo().executar();
         } else {
             System.out.println("FIM");
         }
     }
-    
+    protected void mostrar() {
+        System.out.println(texto);
+        personagem1.setEnergia(variacaoEnergiaPersonagem1);
 
-    public int escolher() {
-
-    int opcaoEscolhida = 0;
-    String escolha;
-    boolean escolhaValida = false;
-
-    while (!escolhaValida) {
-
-      escolha = escaneador.nextLine();
-      for (int i = 0; i < escolhas.size(); i++) {
-        if (escolha.equalsIgnoreCase(escolhas.get(i).getTextoDigitado())) {
-          escolhaValida = true;
-          opcaoEscolhida = i;
+        for (int i = 0; i < escolhas.size(); i++) {
+            System.out.println("- " + escolhas.get(i).getTextoMostrado());
         }
-      }
-
-      if (!escolhaValida) {
-
-        System.out.println("Escolha inválida");
-      }
     }
-
-    return opcaoEscolhida;
+    public int escolher() {
+        int opcaoescolhida = 0;
+        String escolha;
+        boolean escolhavalida = false;
+        while (!escolhavalida) {
+        escolha = escaneador.nextLine();
+        for (int i = 0; i < escolhas.size(); i++) {
+            if (escolha.equalsIgnoreCase(escolhas.get(i).getTextoDigitado())) {
+                escolhavalida = true;
+                opcaoescolhida = i;
+            }
+        }
+        if (!escolhavalida) {
+            System.out.println("Essa escolha não é possivel");
+        }
+    }
+    return opcaoescolhida;
   }
-
 }

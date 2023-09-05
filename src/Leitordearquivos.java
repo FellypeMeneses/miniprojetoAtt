@@ -4,63 +4,71 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+
 public class Leitordearquivos {
-
-    public HashMap<String, Personagem> lerPersonagens(String caminho) {
-        HashMap<String, Personagem> personagens = new HashMap<String, Personagem>();
-
+    public Map<String, Personagem> Lerpersonagens(String caminho) {
+        Map<String, Personagem> personagens = new HashMap<String, Personagem>();
+    
         File arquivo = new File(caminho);
-
         try {
-            Scanner escaneador = new Scanner(arquivo);
-            System.out.println("Carregando Personagens...");
-            int i = 0;
-            while (escaneador.hasNextLine()) {
-                String nome = escaneador.nextLine();
+          Scanner escaneador = new Scanner(arquivo, "UTF-8");
+    
+          System.out.println("Carregando personagens...");
+          int i = 0;
+          while (escaneador.hasNextLine()) {
+            i++;
+            
+            String nome = escaneador.nextLine();
+            
+            escaneador.nextLine();
+            int energia = Integer.parseInt(escaneador.nextLine());
+            
+            escaneador.nextLine();
 
-                int energia = Integer.parseInt(escaneador.nextLine());
-
-                String leitura = escaneador.nextLine();
-                System.out.println("Linha" + i + ": " + leitura);
-
-                personagens.put(nome, new Personagem(nome, energia));
-                i++;
-            }
-            escaneador.close();
+            System.out.println("Personagem " + i);
+    
+            personagens.put(nome, new Personagem(nome, energia));
+    
+          }
+          escaneador.close();
+    
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+          e.printStackTrace();
         }
-
+    
         return personagens;
     }
+    
 
-    public HashMap<String, Capitulo> lerCapitulos(String caminho, Map<String, Personagem> personagens,
-            Scanner escaneadorconsole) {
-        HashMap<String, Capitulo> capitulos = new HashMap<String, Capitulo>();
+    public Map<String, Capitulo> Lercapitulos(String caminho, Map<String, Personagem> personagens,
+                                               Scanner escaneadordoconsole) {
+
+        Map<String, Capitulo> capitulos = new HashMap<String, Capitulo>();
 
         File arquivo = new File(caminho);
-
         try {
-            Scanner escaneadorarquivo = new Scanner(arquivo, "UTF-8");
+            Scanner escaneadordearquivo = new Scanner(arquivo, "UTF-8");
 
-            System.out.println("Carregando capitulos...");
-            String linha = escaneadorarquivo.nextLine();
-            while (escaneadorarquivo.hasNextLine()) {
+            System.out.println("Carregando Capítulos...");
+            while (escaneadordearquivo.hasNextLine()) {
+                String linha = escaneadordearquivo.nextLine();
+
                 if (linha.equals("CAPITULO") || linha.equals("CAPITULO_COM_IMAGEM")) {
-                    escaneadorarquivo.nextLine();
-                    String id = escaneadorarquivo.nextLine();
+                    escaneadordearquivo.nextLine(); // Pular linha em branco
+                    String id = escaneadordearquivo.nextLine();
+
                     if (linha.equals("CAPITULO")) {
-                        capitulos.put(id, new Capitulo(personagens, escaneadorconsole, escaneadorarquivo));
+                        capitulos.put(id, new Capitulo(personagens, escaneadordoconsole, escaneadordearquivo));
                     } else if (linha.equals("ESCOLHA")) {
-                        lerEscolha(capitulos, escaneadorarquivo);
+                        Lerescolha(capitulos, escaneadordearquivo);
                     }
-                    escaneadorarquivo.nextLine();
+
+                    System.out.println("Capítulo " + id);
                 } else if (linha.equals("ESCOLHA")) {
-                    lerEscolha(capitulos, escaneadorarquivo);
+                    Lerescolha(capitulos, escaneadordearquivo);
                 }
-                linha = escaneadorarquivo.nextLine();
             }
-            escaneadorarquivo.close();
+            escaneadordearquivo.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -68,17 +76,17 @@ public class Leitordearquivos {
         return capitulos;
     }
 
-    private static void lerEscolha(HashMap<String, Capitulo> capitulos, Scanner escaneadorarquivo) {
-        escaneadorarquivo.nextLine();
-        String idCapituloDe = escaneadorarquivo.nextLine();
-        escaneadorarquivo.nextLine();
-        String idCapituloPara = escaneadorarquivo.nextLine();
-        escaneadorarquivo.nextLine();
-        String textoDigitado = escaneadorarquivo.nextLine();
-        escaneadorarquivo.nextLine();
-        String textoMostrado = escaneadorarquivo.nextLine();
+    private void Lerescolha(Map<String, Capitulo> capitulos, Scanner escaneadordearquivo) {
+        escaneadordearquivo.nextLine(); // Pular linha em branco
+        String idCapituloDe = escaneadordearquivo.nextLine();
+        escaneadordearquivo.nextLine(); // Pular linha em branco
+        String idCapituloPara = escaneadordearquivo.nextLine();
+        escaneadordearquivo.nextLine(); // Pular linha em branco
+        String textoDigitado = escaneadordearquivo.nextLine();
+        escaneadordearquivo.nextLine(); // Pular linha em branco
+        String textoMostrado = escaneadordearquivo.nextLine();
 
         capitulos.get(idCapituloDe)
-                .adicionarEscolha(new Escolha(textoDigitado, textoMostrado, capitulos.get(idCapituloPara)));
+                .adicionarescolha(new Escolha(textoDigitado, textoMostrado, capitulos.get(idCapituloPara)));
     }
 }
